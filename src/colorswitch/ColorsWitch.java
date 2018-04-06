@@ -9,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /*
@@ -35,10 +34,23 @@ public class ColorsWitch extends Application {
     private Controller controller;
     private GraphicsContext context;
 
+    /**
+     * Le programme commence ici.
+     * L'initialisation des éléments JavaFX est appelée.
+     *
+     * @param args  Laisser vide.
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Le canvas et les events associés à la fenêtre principale sont créés.
+     * La fonctionnalité temporelle est aussi lancée.
+     *
+     * @param primaryStage  La fenêtre de jeu principale.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         controller = new Controller();
@@ -51,6 +63,11 @@ public class ColorsWitch extends Application {
         AnimationTimer timer = new AnimationTimer() {
             private long lastTime = System.nanoTime();
 
+            /**
+             * TODO: cette JavaDoc
+             *
+             * @param now
+             */
             @Override
             public void handle(long now) {
                 controller.tick((now - lastTime) * 1e-9);

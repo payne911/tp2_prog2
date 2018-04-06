@@ -1,7 +1,6 @@
 package colorswitch;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 

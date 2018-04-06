@@ -2,20 +2,25 @@ package colorswitch;
 
 import java.util.List;
 
-/**
- * Contrôleur pour le jeu : fait le pont entre la vue et les modèles.
- */
+
 public class Controller {
 
     private Game game;
     private int level = 1;
 
+    /**
+     * Contrôleur pour le jeu : fait le pont entre la vue et les modèles.
+     */
     public Controller() {
         this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
     }
 
     public List<Entity> getEntities() {
         return this.game.getEntities();
+    }
+
+    public Level getCurrentLevel() {
+        return this.game.getLevel();
     }
 
     /**
@@ -32,10 +37,6 @@ public class Controller {
         } else {
             this.game.tick(dt);
         }
-    }
-
-    public Level getCurrentLevel() {
-        return this.game.getLevel();
     }
 
     /**

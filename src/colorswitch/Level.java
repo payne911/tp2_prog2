@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Level {
 
     /**
-     * À quel point on est avancés dans le level
+     * À quel point on est avancé dans le level
      */
     protected double scroll;
 

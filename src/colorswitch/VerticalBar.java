@@ -17,7 +17,7 @@ public class VerticalBar extends Obstacle {
 
         this.width = largeur;
         this.height = hauteur;
-        this.renderer = new VertBRenderer(this);
+        this.renderer = new VerticalBarRenderer(this);
 
         this.color = (int) (Math.random() * 4);
     }

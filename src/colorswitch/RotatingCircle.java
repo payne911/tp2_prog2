@@ -31,7 +31,7 @@ public class RotatingCircle extends Obstacle {
         this.speed = speed;
         this.posX = x;
         this.posY = y - rotRadius; // starts at the bottom-most part
-        this.renderer = new RotCRenderer(this);
+        this.renderer = new RotatingCircleRenderer(this);
 
         this.color = (int) (Math.random() * 4);
     }

@@ -1,21 +1,24 @@
 package colorswitch;
 
 /**
- * Item : Bouclier magique.
- *
- * Rend la sorcière invincible pendant 3 secondes.
+ * Item : Shrinker.
+ * 
+ * Rends le joueur plus petit et plus rapide.
  */
-public class Shield extends Item {
+public class Shrinker extends Item {
 
-    public Shield(double x, double y) {
+    private int number = 13;
+    private int frameRate = 20;
+
+    public Shrinker(double x, double y) {
         super(x, y);
 
-        this.renderer = new ImageRenderer("shield", this);
+        this.renderer = new AnimationRenderer("shrinker_anim",
+                this.number, this.frameRate, this);
     }
 
     @Override
     public void tick(double dt) {
-        // Rien à faire
     }
 
     @Override
@@ -31,10 +34,10 @@ public class Shield extends Item {
     @Override
     public void handleCollision(Player player, Game game) {
 
+        player.shrink();
+
         // push outside of the screen
         this.setX(this.getWidth() + game.getScreenWidth());
-
-        player.makeInvincible();
     }
 
     @Override

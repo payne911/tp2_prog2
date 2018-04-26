@@ -1,14 +1,19 @@
 package colorswitch;
 
 import java.util.List;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,33 +23,22 @@ import javafx.stage.Stage;
 
 
 /*
-    TODO: BONUS
+    BONUS
 
-    - Animer la mort de la soricère (5%)
-        Lorsque la sorcière touche un obstacle de la mauvaise couleur, on voudrait qu’elle “explose” en 100
-        petites balles qui partent dans tous les sens et qui rebondissent sur les murs, un peu comme dans le
-        jeu original
-
-    - Créer plus de variété (5%)
-        • 2 autres types d’obstacles animés, dont les animations sont différentes de celles des autres
-        obstacles
+    - TODO: Créer plus de variété (5%)
+        • 1 obstacle animé, dont l'animation est différente de celles des autres obstacles
             > ??
-            > ??
-        • 2 autres types d’items, un qui aide la sorcière dans sa quête, l’autre qui lui nuit (par exemple,
-        en modifiant sa vitesse, en ajoutant des obstacles au niveau, ou quoi que ce soit d’autre. . . )
-            > TÉLÉPORTEUR
+        • 1 item qui NUIT au joueur
             > ??
         • 6 niveaux, pour un total de 10 niveaux
 
-    - Ajouter un menu qui permet de choisir le niveau dans lequel on joue (5%)
+    - TODO: Ajouter un menu qui permet de choisir le niveau dans lequel on joue (5%)
         Dans le code fourni, lorsqu’on démarre le jeu, on commence directement dans le niveau 1. On devrait
         plutôt pouvoir choisir le niveau qui nous intéresse.
         Ajoutez un menu qui permet de choisir le niveau dans lequel on joue.
         De plus, pendant un niveau, on devrait pouvoir appuyer sur Escape pour quitter le niveau et revenir
         au menu.
  */
-
-// TODO: Ajouter l'option "TAB" pour Toggle Invincibility
 
 /*
     TODO:
@@ -54,6 +48,10 @@ import javafx.stage.Stage;
  */
 
 // TODO: JavaDoc!
+// TODO: Allonger le nom des variables? (plus explicite...)    -.-'
+// TODO: Possiblement ajouter des indicateurs visuels pour l'état du joueur (invincible ou non, etc.)
+// TODO: Possiblement rajouter au canon un rectangle qui suit le joueur lorsqu'il rentre dans son range
+
 
 /**
  * Classe principale. Définit la vue.
@@ -66,47 +64,47 @@ public class ColorsWitch extends Application {
 
     public static final double WIDTH = 320, HEIGHT = 480;
 
-    static private Text outputTxt;
-    static private Stage primaryStage;
-    static private Scene scene;
-    static private Scene intermScene;
-
     private Controller controller;
     private GraphicsContext context;
 
 
-
-    static public void setMainScene(){
-        primaryStage.setScene(scene);
-    }
-
-    static public void setIntermScene() {
-        primaryStage.setScene(intermScene);
-    }
-
+    /**
+     * Lance l'application.
+     *
+     * @param args Laisser vide.
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Initialise les composantes graphiques de la fenêtre de jeu.
+     *
+     * @param primaryStage La fenêtre de l'application.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        this.primaryStage = primaryStage;
-        controller = new Controller();
-
         // Initialisation de la scène intermédiaire (Loss/Win)
         VBox rootVBox = new VBox();
-        this.intermScene = new Scene(rootVBox, WIDTH, HEIGHT);
+        Scene intermScene = new Scene(rootVBox, WIDTH, HEIGHT);
 
-        outputTxt = new Text("You have "); // TODO: Fix properly
-
+        Text outputTxt = new Text("");
         outputTxt.setX(WIDTH/2);
         outputTxt.setY(HEIGHT/2);
-        outputTxt.setFill(Color.RED);
-        outputTxt.setFont(Font.font("Courier New", 17));
+        outputTxt.setFill(Color.WHITE);
+        outputTxt.setFont(Font.font("Courier New", 20));
+
+        Text genericTxt = new Text("Press 'N' to proceed.");
+        genericTxt.setX(WIDTH/2);
+        genericTxt.setY(HEIGHT/2);
+        genericTxt.setFill(Color.WHITE);
+        genericTxt.setFont(Font.font("Courier New", 13));
 
         rootVBox.setAlignment(Pos.CENTER);
-        rootVBox.getChildren().add(outputTxt);
+        rootVBox.getChildren().addAll(outputTxt, genericTxt);
+        rootVBox.setSpacing(50);
         rootVBox.setStyle("-fx-background-color: black;");
 
 
@@ -114,9 +112,40 @@ public class ColorsWitch extends Application {
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         Pane root = new Pane(canvas);
 
-        //Button levelBtn = new Button("Current level: "); // TODO: add currLvl
+        // Create a Level Selection Menu button
+        MenuButton levelBtn = new MenuButton("Select a level");
+        levelBtn.popupSideProperty().set(Side.TOP);
+        levelBtn.setLayoutY(HEIGHT-25);
+        levelBtn.backgroundProperty().set(Background.EMPTY);
+        levelBtn.setTextFill(Color.CHARTREUSE);
 
-        //root.getChildren().add(levelBtn);
+        MenuItem lvl1 = new MenuItem("Level 1");
+        MenuItem lvl2 = new MenuItem("Level 2");
+        MenuItem lvl3 = new MenuItem("Level 3");
+        MenuItem lvl4 = new MenuItem("Level 4");
+        MenuItem lvl5 = new MenuItem("Level 5");
+        MenuItem lvl6 = new MenuItem("Level 6");
+        MenuItem lvl7 = new MenuItem("Level 7");
+        MenuItem lvl8 = new MenuItem("Level 8");
+        MenuItem lvl9 = new MenuItem("Level 9");
+        MenuItem lvl10 = new MenuItem("Level 10");
+
+        levelBtn.getItems().addAll(lvl1, lvl2, lvl3, lvl4, lvl5, lvl6, lvl7,
+                lvl8, lvl9, lvl10);
+
+        // Setting up the interaction with each Item
+        lvl1.setOnAction((event) -> controller.changeLvl(1));
+        lvl2.setOnAction((event) -> controller.changeLvl(2));
+        lvl3.setOnAction((event) -> controller.changeLvl(3));
+        lvl4.setOnAction((event) -> controller.changeLvl(4));
+        lvl5.setOnAction((event) -> controller.changeLvl(5));
+        lvl6.setOnAction((event) -> controller.changeLvl(6));
+        lvl7.setOnAction((event) -> controller.changeLvl(7));
+        lvl8.setOnAction((event) -> controller.changeLvl(8));
+        lvl9.setOnAction((event) -> controller.changeLvl(9));
+        lvl10.setOnAction((event) -> controller.changeLvl(10));
+
+        root.getChildren().add(levelBtn);
 
         context = canvas.getGraphicsContext2D();
 
@@ -142,10 +171,15 @@ public class ColorsWitch extends Application {
         };
         timer.start();
 
-        this.scene = new Scene(root, WIDTH, HEIGHT);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        scene.setOnKeyPressed((event) -> {
+        controller = new Controller(primaryStage, outputTxt,
+                intermScene, scene);
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            // Pour que l'Espace ne puisse pas interagir avec le bouton
             if (event.getCode() == KeyCode.SPACE) {
+                event.consume();
                 controller.spaceTyped();
             }
 
@@ -155,14 +189,13 @@ public class ColorsWitch extends Application {
         });
 
         intermScene.setOnKeyPressed((event) -> {
-            if (event.getCode() == KeyCode.SPACE) {
+            if (event.getCode() == KeyCode.N) {
                 controller.setLevel();
             }
         });
 
         primaryStage.setTitle("Colors Witch");
         primaryStage.setScene(scene);
-        //primaryStage.setScene(intermScene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

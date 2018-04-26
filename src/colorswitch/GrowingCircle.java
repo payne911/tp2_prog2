@@ -21,7 +21,7 @@ public class GrowingCircle extends Obstacle {
         this.radius = minRadius;
         this.minRadius = minRadius;
         this.maxRadius = maxRadius;
-        this.renderer = new GrowCRenderer(this);
+        this.renderer = new GrowingCircleRenderer(this);
 
         this.color = (int) (Math.random() * 4);
     }

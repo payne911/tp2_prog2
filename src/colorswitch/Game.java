@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Game {
 
-    private Level level;
-    private Player player;
+    static private Level level;
+    static private Player player;
 
     /**
      * Dimensions de l'écran
@@ -18,6 +18,8 @@ public class Game {
      */
     private boolean gameOver = false;
     private boolean hasWon = false;
+    private boolean tempGameOver = false;
+    private double gameOverCounter = 0;
 
     /**
      * Crée une partie dans le niveau levelNumber.
@@ -45,6 +47,24 @@ public class Game {
             case 4:
                 level = new Level4(screenWidth, screenHeight);
                 break;
+            case 5:
+                level = new Level5(screenWidth, screenHeight);
+                break;
+            case 6:
+                level = new Level6(screenWidth, screenHeight);
+                break;
+            case 7:
+                level = new Level7(screenWidth, screenHeight);
+                break;
+            case 8:
+                level = new Level8(screenWidth, screenHeight);
+                break;
+            case 9:
+                level = new Level9(screenWidth, screenHeight);
+                break;
+            case 10:
+                level = new Level10(screenWidth, screenHeight);
+                break;
             default:
                 throw new IllegalArgumentException("Niveau inconnu");
         }
@@ -63,6 +83,15 @@ public class Game {
         level.tick(dt);
         player.tick(dt);
 
+        if (tempGameOver)
+            gameOverCounter += dt;
+
+        // Petit délai avant de proposer au joueur de recommencer TODO: proposer?
+        if (gameOverCounter > 1.5) {
+            gameOver = true;
+            Controller.setIntermScene(false);
+        }
+
         if (player.getY() - player.getRadius() < level.getScroll()) {
             // Empêche la balle de sortir de l'écran
             player.setY(level.getScroll() + player.getRadius());
@@ -74,9 +103,11 @@ public class Game {
 
         // Gestion des collisions avec les éléments (items/obstacles/...)
         // du niveau
-        for (LevelElement element : level.getEntities()) {
-            if (element.intersects(player)) {
-                element.handleCollision(player, this);
+        if(!tempGameOver) {
+            for (LevelElement element : level.getEntities()) {
+                if (element.intersects(player)) {
+                    element.handleCollision(player, this);
+                }
             }
         }
     }
@@ -88,49 +119,46 @@ public class Game {
         List<Entity> entities = new ArrayList<>();
 
         entities.addAll(level.getEntities());
-        entities.add(player);
+
+        if (!tempGameOver)
+            entities.add(player);
 
         return entities;
     }
 
-    public Level getLevel() {
+    public static Level getLevel() {
         return level;
     }
 
+    public static Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * Fait en sorte que le joueur bouge vers le haut.
+     */
     public void jump() {
-        player.jump();
+        if(!tempGameOver)
+            player.jump();
     }
 
+    /**
+     * Gère la fin d'un niveau avec échec. Crée 100 petites balles.
+     */
     public void loose() {
-        /*
-        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30.
-        Présentement, lorsqu’un niveau est complété, on passe directement au
-        niveau suivant, sans félicitations, sans indications de quoi que ce soit.
-        De la même façon, si on perd dans un niveau, on devrait avoir une indication textuelle.
-        Trouvez une façon d’afficher un message lorsqu’on gagne ou on perd, soit en ajoutant un élément
-        Text dans la scène, soit en dessinant du texte sur le canvas déjà présent avec la méthode drawText
-        quelque part.
-         */
-        System.out.println("You loose... Too bad !");
 
-        ColorsWitch.setIntermScene();
+        this.tempGameOver = true;
 
-        this.gameOver = true;
+        for (int i = 0; i < 100; i++) {
+            level.obstacles.add(new DeathCircle(player.getX(), player.getY()));
+        }
     }
 
+    /**
+     * Gère la fin d'un niveau avec succès.
+     */
     public void win() {
-        /*
-        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30.
-        Présentement, lorsqu’un niveau est complété, on passe directement au
-        niveau suivant, sans félicitations, sans indications de quoi que ce soit.
-        De la même façon, si on perd dans un niveau, on devrait avoir une indication textuelle.
-        Trouvez une façon d’afficher un message lorsqu’on gagne ou on perd, soit en ajoutant un élément
-        Text dans la scène, soit en dessinant du texte sur le canvas déjà présent avec la méthode drawText
-        quelque part.
-         */
-        System.out.println("You win !");
-
-        ColorsWitch.setIntermScene();
+        Controller.setIntermScene(true);
 
         this.hasWon = true;
         this.gameOver = true;
@@ -139,7 +167,7 @@ public class Game {
     /**
      * Indique si la partie est gagnée
      *
-     * @return
+     * @return booléen qui l'indique
      */
     public boolean hasWon() {
         return hasWon;
@@ -148,7 +176,7 @@ public class Game {
     /**
      * Indique si la partie est terminée
      *
-     * @return
+     * @return booléen qui l'indique
      */
     public boolean isGameOver() {
         return gameOver;

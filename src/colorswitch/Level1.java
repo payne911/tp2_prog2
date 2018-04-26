@@ -28,6 +28,6 @@ public class Level1 extends Level {
         items.add(shield1);
         items.add(potion1);
 
-        victoryMushroom = new Mushroom(screenWidth / 2, 3.5 * screenHeight);
+        victoryMushroom = new Mushroom(screenWidth / 2, 3.0 * screenHeight);
     }
 }

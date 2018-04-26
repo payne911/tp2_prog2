@@ -12,19 +12,7 @@ public abstract class LevelElement extends Entity {
         super(x, y);
     }
 
-    /**
-     * Vérifie si l'entité intersecte la sorcière.
-     *
-     * @param player    La sorcière.
-     * @return  'true' si oui, 'false' sinon.
-     */
     public abstract boolean intersects(Player player);
 
-    /**
-     * S'occupe de gérer la collision.
-     *
-     * @param player    La sorcière.
-     * @param game      Le jeu.
-     */
     public abstract void handleCollision(Player player, Game game);
 }

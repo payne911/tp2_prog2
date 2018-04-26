@@ -89,8 +89,6 @@ public class RotatingCircle extends Obstacle {
     @Override
     public boolean intersects(Player player) {
 
-        // TODO: tester ce collisionTest
-
         double x = player.getX();
         double y = player.getY();
         double r = player.getRadius();

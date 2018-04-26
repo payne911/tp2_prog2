@@ -1,7 +1,5 @@
 package colorswitch;
 
-import javafx.application.Platform;
-
 /**
  * Classe représentant l'entité de la personne qui joue (aka, la sorcière).
  *
@@ -14,6 +12,7 @@ public class Player extends Entity {
     private double ay;
     private int color = 1;
     private boolean invincible = false;
+    private double invCounter = 0;
 
     public Player(double x, double y, double r) {
         super(x, y);
@@ -38,27 +37,7 @@ public class Player extends Entity {
      * Makes the player invincible for 3 seconds.
      */
     public void makeInvincible() {
-
         this.invincible = true;
-
-        Thread wait = new Thread(() -> {
-            try{
-                Thread.sleep(3000);
-            } catch (Exception e) {
-            } finally {
-                // TODO: Where is the appropriate place for "runLater" ?
-                Platform.runLater(() -> this.invincible = false);
-            }
-        });
-
-        wait.setDaemon(true);
-        wait.start();
-
-        /*
-        TODO: Sachant que un nouveau joueur est instancié à chaque niveau
-        ou mort, est-il nécessaire d'arrêter ce Thread?
-        A priori, non!
-         */
     }
 
     /**
@@ -69,6 +48,17 @@ public class Player extends Entity {
      */
     @Override
     public void tick(double dt) {
+        //TODO: Add Perma-invincibility (TAB)
+        // Pour gérer l'invincibilité
+        if(invincible)
+            invCounter += dt;
+
+        // Après 3 secondes d'invincibilité, le joueur peut mourir
+        if(invCounter > 3){
+            invCounter = 0;
+            invincible = false;
+        }
+
         // Mise à jour de la vitesse
         vy += dt * ay;
 

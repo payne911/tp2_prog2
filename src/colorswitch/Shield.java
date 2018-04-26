@@ -33,10 +33,10 @@ public class Shield extends Item {
     @Override
     public void handleCollision(Player player, Game game) {
         used = true;
+
+        // push outside of the screen
         this.setX(this.getWidth() + game.getScreenWidth());
-        /* TODO: Possibly change image instead?
-        * this.renderer = new ImageRenderer("blank", this);
-        * */
+
         player.makeInvincible();
     }
 

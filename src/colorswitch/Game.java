@@ -97,16 +97,13 @@ public class Game {
         return level;
     }
 
-    /**
-     * Fait sauter le joueur.
-     */
     public void jump() {
         player.jump();
     }
 
     public void loose() {
         /*
-        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30. Et JavaDoc!
+        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30.
         Présentement, lorsqu’un niveau est complété, on passe directement au
         niveau suivant, sans félicitations, sans indications de quoi que ce soit.
         De la même façon, si on perd dans un niveau, on devrait avoir une indication textuelle.
@@ -115,12 +112,15 @@ public class Game {
         quelque part.
          */
         System.out.println("You loose... Too bad !");
+
+        ColorsWitch.setIntermScene();
+
         this.gameOver = true;
     }
 
     public void win() {
         /*
-        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30. Et JavaDoc!
+        TODO! Possiblement dans classe "Controller", ligne 28 et/ou 30.
         Présentement, lorsqu’un niveau est complété, on passe directement au
         niveau suivant, sans félicitations, sans indications de quoi que ce soit.
         De la même façon, si on perd dans un niveau, on devrait avoir une indication textuelle.
@@ -129,6 +129,9 @@ public class Game {
         quelque part.
          */
         System.out.println("You win !");
+
+        ColorsWitch.setIntermScene();
+
         this.hasWon = true;
         this.gameOver = true;
     }
@@ -136,7 +139,7 @@ public class Game {
     /**
      * Indique si la partie est gagnée
      *
-     * @return  'true' si la partie est gagnée, 'false' sinon.
+     * @return
      */
     public boolean hasWon() {
         return hasWon;
@@ -145,7 +148,7 @@ public class Game {
     /**
      * Indique si la partie est terminée
      *
-     * @return  'true' si la partie est terminée, 'false' sinon.
+     * @return
      */
     public boolean isGameOver() {
         return gameOver;

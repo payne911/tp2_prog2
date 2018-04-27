@@ -17,17 +17,17 @@ public class Controller {
     private Scene mainScene;
 
     static private Stage primaryStage;
-    static private Text outputTxt;
-    static private Scene intermScene;
+    static private Scene lvlScene;
+    static private Text infoTxt;
 
 
-    public Controller(Stage primaryStage, Text outputTxt,
-                      Scene intermScene, Scene mainScene) {
+    public Controller(Stage primaryStage, Scene mainScene,
+                      Scene lvlScene, Text infoTxt) {
         this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
         this.primaryStage = primaryStage;
-        this.intermScene = intermScene;
         this.mainScene = mainScene;
-        this.outputTxt = outputTxt;
+        this.lvlScene = lvlScene;
+        this.infoTxt = infoTxt;
     }
 
     public List<Entity> getEntities() {
@@ -46,7 +46,8 @@ public class Controller {
             if (this.game.hasWon()) {
                 level++;
             }
-            // TODO: Attendre la nouvelle game? (Menu de confirmation)
+
+            // TODO: Rajouter le text ici?
             this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
 
         } else {
@@ -66,17 +67,22 @@ public class Controller {
     }
 
     /**
-     * Fonction appelée lorsque le TAB est enfoncé.
+     * Fonction appelée lorsque 'TAB' est enfoncé.
      */
     public void tabTyped() {
         Player.toggleInvincible();
     }
 
     /**
-     * Pour retourner au jeu après l'affichage temporaire de "Win"/"Loss".
+     * Fonction appelée lorsque 'ESCAPE' est enfoncé.
      */
-    public void setLevel(){
-        primaryStage.setScene(mainScene);
+    public void escapeTyped() {
+
+        for (int i = 0; i < Game.getLevel().getEntities().size(); i++) {
+            Game.getLevel().getEntities().remove(0);
+        }
+
+        primaryStage.setScene(lvlScene);
     }
 
     /**
@@ -89,23 +95,40 @@ public class Controller {
 
         this.level = level;
         this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
+        setLevel();
+    }
+
+
+    /**
+     * Pour afficher un message de Victoire ou Défaite au joueur pour 1 seconde.
+     *
+     * @param text  Le message à montrer.
+     */
+    static public void displayTxt(String text) {
+
+        infoTxt.setText(text);
+
+        if(text.contains("réussi"))
+            infoTxt.setFill(Color.CHARTREUSE);
+        else
+            infoTxt.setFill(Color.RED);
+
+        // Après une seconde, le texte n'est plus!
+        Thread displayCounter = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                infoTxt.setText("");
+            } catch (Exception e) {
+            }
+        });
+        displayCounter.start();
     }
 
     /**
-     * Affichage intermédiaire entre deux niveaux.
-     *
-     * @param hasWon indique la cause de l'affichage (win = true/loss = false).
+     * Pour retourner au jeu.
      */
-    static public void setIntermScene(boolean hasWon) {
-
-        primaryStage.setScene(intermScene);
-
-        if (hasWon) {
-            outputTxt.setText("You have succeeded! :D");
-            outputTxt.setFill(Color.CHARTREUSE);
-        } else {
-            outputTxt.setText("You have died. :(");
-            outputTxt.setFill(Color.RED);
-        }
+    public void setLevel(){
+        infoTxt.setText("");
+        primaryStage.setScene(mainScene);
     }
 }

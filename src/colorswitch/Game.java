@@ -86,11 +86,9 @@ public class Game {
         if (tempGameOver)
             gameOverCounter += dt;
 
-        // Petit délai avant de proposer au joueur de recommencer TODO: proposer?
-        if (gameOverCounter > 1.5) {
+        // Petit délai avant de faire recommencer le niveau
+        if (gameOverCounter > 1.5)
             gameOver = true;
-            Controller.setIntermScene(false);
-        }
 
         if (player.getY() - player.getRadius() < level.getScroll()) {
             // Empêche la balle de sortir de l'écran
@@ -147,6 +145,8 @@ public class Game {
      */
     public void loose() {
 
+        Controller.displayTxt("\n\n\n\n\n      Tu as échoué :(");
+
         this.tempGameOver = true;
 
         for (int i = 0; i < 100; i++) {
@@ -158,7 +158,8 @@ public class Game {
      * Gère la fin d'un niveau avec succès.
      */
     public void win() {
-        Controller.setIntermScene(true);
+
+        Controller.displayTxt("\n\n\n\n\n      Tu as réussi :D");
 
         this.hasWon = true;
         this.gameOver = true;

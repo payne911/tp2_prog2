@@ -69,7 +69,8 @@ public class Canon extends Obstacle {
 
                 // Le canon tire une balle!
                 Platform.runLater(() ->
-                        level.obstacles.add(new Ball(posX, posY, 3, 70))
+                        level.obstacles.add(
+                                new Bullet(posX, posY, 3, 70))
                 );
 
                 timeSinceLastShot = 0;

@@ -26,10 +26,6 @@ import javafx.stage.Stage;
     BONUS
 
     - TODO: Créer plus de variété (5%)
-        • 1 obstacle animé, dont l'animation est différente de celles des autres obstacles
-            > ??
-        • 1 item qui NUIT au joueur
-            > ??
         • 6 niveaux, pour un total de 10 niveaux
 
     - TODO: Ajouter un menu qui permet de choisir le niveau dans lequel on joue (5%)
@@ -51,6 +47,7 @@ import javafx.stage.Stage;
 // TODO: Allonger le nom des variables? (plus explicite...)    -.-'
 // TODO: Possiblement ajouter des indicateurs visuels pour l'état du joueur (invincible ou non, etc.)
 // TODO: Possiblement rajouter au canon un rectangle qui suit le joueur lorsqu'il rentre dans son range
+// TODO: TAB à désactiver à chaque nouveau niveau ? À vérifier...
 
 
 /**

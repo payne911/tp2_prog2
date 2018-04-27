@@ -17,6 +17,9 @@ public class Player extends Entity {
     private boolean invincible = false;
     private double invCounter = 0;
 
+    private boolean dizzy = false;
+    private double dizzyCounter = 0;
+
     private double realRadius;
     private double targetRadius;
     private boolean shrinking = false;
@@ -66,7 +69,14 @@ public class Player extends Entity {
      * Makes the player invincible for 3 seconds.
      */
     public void makeInvincible() {
-        this.invincible = true;
+        invincible = true;
+    }
+
+    /**
+     * La sorcière commence à dévier horizontalement.
+     */
+    public void makeDizzy() {
+        dizzy = true;
     }
 
     /**
@@ -84,6 +94,32 @@ public class Player extends Entity {
      */
     @Override
     public void tick(double dt) {
+
+        if (dizzy) {
+            dizzyCounter += dt;
+
+            // Pour l'effet du mouvement aléatoire
+            double temp = Math.random();
+            if (temp < .5)
+                temp = -1;
+            else
+                temp = 1;
+
+            setX(getX() + (temp * 220 * Math.random() * dt));
+        }
+
+        if (dizzyCounter > 10) {
+            dizzy = false;
+            dizzyCounter = 0;
+        }
+
+        if (!dizzy) {
+            // Bring player back to middle of the screen
+            if (getX() < ColorsWitch.WIDTH / 2)
+                setX(getX() + 10 * dt);
+            if (getX() > ColorsWitch.WIDTH / 2)
+                setX(getX() - 10 * dt);
+        }
 
         // Réduction graduelle du rayon
         if (shrinking) {

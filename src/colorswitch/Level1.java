@@ -8,10 +8,11 @@ public class Level1 extends Level {
         double x = screenWidth / 2;
 
         // Création des obstacles
-        Canon obstacle1 = new Canon(x*.3, .7 * screenHeight,
-                24, 150);
-        GrowingCircle obstacle2 = new GrowingCircle(x, 1.4 * screenHeight,
-                10, 50);
+        Scroller obstacle1 = new Scroller(x,.7 * screenHeight, 10,
+                70, 50);
+        Canon obstacle2 = new Canon(x*.3, 1.4 * screenHeight,
+                24, 200);
+
         VerticalBar obstacle3 = new VerticalBar(x, 1.9 * screenHeight,
                 30, 100);
         Square obstacle4 = new Square(x, 2.6 * screenHeight, 5);
@@ -23,11 +24,11 @@ public class Level1 extends Level {
 
         // Création des items
 
-        Shrinker shrinker = new Shrinker(x, 1.05 * screenHeight);
+        Dizzy dizzy = new Dizzy(x, 1.05 * screenHeight);
         Shield shield = new Shield(x, 2.3 * screenHeight);
 
         items.add(shield);
-        items.add(shrinker);
+        items.add(dizzy);
 
         victoryMushroom = new Mushroom(x, 3.0 * screenHeight);
     }

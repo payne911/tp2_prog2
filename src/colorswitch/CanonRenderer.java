@@ -33,6 +33,7 @@ public class CanonRenderer extends Renderer {
 
         context.setStroke(Color.RED);
 
+        // TODO: Fix the parameters... size is somehow slightly off...
         context.strokeOval(posX - range, canvasY - range,
                 range*2, range*2);
 

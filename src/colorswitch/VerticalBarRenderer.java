@@ -7,23 +7,23 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class VerticalBarRenderer extends Renderer {
 
-    private VerticalBar vertB;
+    private VerticalBar verticalBar;
 
     public VerticalBarRenderer(VerticalBar c) {
-        this.vertB = c;
+        this.verticalBar = c;
     }
 
     @Override
     public void draw(Level level, GraphicsContext context) {
 
-        double canvasY = Renderer.computeScreenY(level, vertB.getY());
+        double canvasY = Renderer.computeScreenY(level, verticalBar.getY());
 
-        context.setFill(Renderer.convertColor(vertB.getColor()));
+        context.setFill(Renderer.convertColor(verticalBar.getColor()));
 
         context.fillRect(
-                vertB.getX() - vertB.getWidth() / 2,
-                canvasY - vertB.getHeight() / 2,
-                vertB.getWidth(),
-                vertB.getHeight());
+                verticalBar.getX() - verticalBar.getWidth() / 2,
+                canvasY - verticalBar.getHeight() / 2,
+                verticalBar.getWidth(),
+                verticalBar.getHeight());
     }
 }

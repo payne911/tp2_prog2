@@ -25,17 +25,15 @@ public class CanonRenderer extends Renderer {
 
         context.setFill(Renderer.convertColor(canon.getColor()));
 
+        // corp du cannon
         context.fillRect(posX - width / 2, canvasY - width / 2,
                 width, width);
 
         context.strokeOval(posX - width / 2, canvasY - width / 2,
                 width, width);
 
-        context.setStroke(Color.RED);
-
-        // TODO: Fix the parameters... size is somehow slightly off...
-        context.strokeOval(posX - range, canvasY - range,
-                range*2, range*2);
+        context.setFill(new Color(1, 0.2, 0.2, 0.15));
+        context.fillOval(posX - range, canvasY - range, range*2, range*2);
 
         // Reset Stroke to usual color
         context.setStroke(Color.BLACK);

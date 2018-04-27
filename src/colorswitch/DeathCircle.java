@@ -10,20 +10,24 @@ public class DeathCircle extends Obstacle {
     private double vy;
     private double ay;
     private double vx;
+    private double speed;
     private double ax;
 
     public DeathCircle(double x, double y) {
         super(x, y);
 
-        this.vy = randomSign() * Math.random() * 400;
-        this.vx = randomSign() * Math.random() * 150;
+        this.speed = Math.random() * 600;
+
+        double angle = (Math.random() * Math.PI * 2);
+
+        this.vy = Math.sin(angle) * (speed * 0.8) + Game.getPlayer().getPlayerYspeed();
+        this.vx = Math.cos(angle) * speed;
 
         this.ay = -400;
-        this.ax = 400 * vx / Math.abs(vx) ;
 
         this.renderer = new DeathCircleRenderer(this);
 
-        this.radius = Math.random() * 3 + 3;
+        this.radius = Math.random() * 3 + 2;
         this.color = (int) (Math.random() * 4);
     }
 
@@ -60,7 +64,7 @@ public class DeathCircle extends Obstacle {
 
         // Mise à jour de la vitesse
         vy += dt * ay;
-        vx += dt * ax;
+        // vx += dt * ax;
 
         // Mise à jour de la position
         y += dt * vy;
@@ -69,19 +73,19 @@ public class DeathCircle extends Obstacle {
         // Touche au côté gauche de l'écran
         if (x - radius <= 0) {
             x = radius + 1;
-            vx = -vx/30;
-            ax = -ax/1.5;
+            vx = -vx * 0.9;
         }
 
         // Touche au côté droit de l'écran
         if (x + radius >= ColorsWitch.WIDTH) {
             x = ColorsWitch.WIDTH - radius - 1;
-            vx = -vx/30;
-            ax = -ax/1.5;
+            vx = -vx * 0.9;
         }
 
         // Vitesse miniale: -300
         vy = Math.max(vy, -300);
+
+        vx *= 0.99999;
     }
 
     public int getColor() {

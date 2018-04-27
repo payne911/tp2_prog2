@@ -16,8 +16,10 @@ public class Canon extends Obstacle {
     private double posY;
     private boolean initialized = false;
     private double range;
+    private double speed;
+    private double rate;
 
-    public Canon(double x, double y, double longueur, double range) {
+    public Canon(double x, double y, double longueur, double range, double speed, double rate) {
         super(x, y);
 
         this.posX = x;
@@ -26,6 +28,8 @@ public class Canon extends Obstacle {
         this.range = range;
         this.player = Game.getPlayer();
         this.renderer = new CanonRenderer(this);
+        this.rate = rate;
+        this.speed = speed;
 
         this.color = 4;
     }
@@ -49,7 +53,7 @@ public class Canon extends Obstacle {
 
         timeSinceLastShot += dt;
 
-        if (timeSinceLastShot > 2) {
+        if (timeSinceLastShot > this.rate) {
 
             // To prevent NullPointer error, this attribute is assigned here
             if (!initialized) {
@@ -69,8 +73,7 @@ public class Canon extends Obstacle {
 
                 // Le canon tire une balle!
                 Platform.runLater(() ->
-                        level.obstacles.add(
-                                new Bullet(posX, posY, 3, 70))
+                        level.obstacles.add(new Bullet(posX, posY, 3, this.speed))
                 );
 
                 timeSinceLastShot = 0;

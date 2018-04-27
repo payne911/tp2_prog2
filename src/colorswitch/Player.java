@@ -108,7 +108,7 @@ public class Player extends Entity {
             setX(getX() + (temp * 220 * Math.random() * dt));
         }
 
-        if (dizzyCounter > 10) {
+        if (dizzyCounter > 7) {
             dizzy = false;
             dizzyCounter = 0;
         }

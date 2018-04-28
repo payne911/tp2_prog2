@@ -7,6 +7,7 @@ package colorswitch;
  */
 public class Player extends Entity {
 
+    // Pour la fonction "TAB" (Cheat)
     private static boolean permaInvinc = false;
 
     private double radius;
@@ -14,12 +15,15 @@ public class Player extends Entity {
     private double ay;
     private int color = 1;
 
+    // Pour l'item "Shield"
     private boolean invincible = false;
     private double invCounter = 0;
 
+    // Pour l'item "Dizzy"
     private boolean dizzy = false;
     private double dizzyCounter = 0;
 
+    // Pour l'item "Shrinker"
     private double realRadius;
     private double targetRadius;
     private boolean shrinking = false;
@@ -29,7 +33,7 @@ public class Player extends Entity {
      * Constructeur.
      *
      * @param x Position en X du joueur.
-     * @param y Pôsition en Y du joueur.
+     * @param y Position en Y du joueur.
      * @param r Grosseur (rayon) du joueur.
      */
     public Player(double x, double y, double r) {
@@ -53,6 +57,10 @@ public class Player extends Entity {
 
     public boolean getPermaInvinc() {
         return permaInvinc;
+    }
+
+    public double getYSpeed() {
+        return vy;
     }
 
 
@@ -88,7 +96,7 @@ public class Player extends Entity {
 
     /**
      * Fonction appelée à chaque frame pour mettre à jour les attributs de
-     * l'entité
+     * l'entité.
      *
      * @param dt Delta-Temps en secondes
      */
@@ -108,7 +116,7 @@ public class Player extends Entity {
             setX(getX() + (temp * 220 * Math.random() * dt));
         }
 
-        if (dizzyCounter > 7) {
+        if (dizzyCounter > 6) {
             dizzy = false;
             dizzyCounter = 0;
         }
@@ -116,9 +124,9 @@ public class Player extends Entity {
         if (!dizzy) {
             // Bring player back to middle of the screen
             if (getX() < ColorsWitch.WIDTH / 2)
-                setX(getX() + 10 * dt);
+                setX(getX() + 25 * dt);
             if (getX() > ColorsWitch.WIDTH / 2)
-                setX(getX() - 10 * dt);
+                setX(getX() - 25 * dt);
         }
 
         // Réduction graduelle du rayon

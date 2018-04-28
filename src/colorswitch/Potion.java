@@ -9,6 +9,12 @@ public class Potion extends Item {
 
     private boolean used = false;
 
+    /**
+     * Constructeur.
+     *
+     * @param x     Position en X.
+     * @param y     Position en Y.
+     */
     public Potion(double x, double y) {
         super(x, y);
 
@@ -17,7 +23,6 @@ public class Potion extends Item {
 
     @Override
     public void tick(double dt) {
-        // Rien à faire
     }
 
     @Override

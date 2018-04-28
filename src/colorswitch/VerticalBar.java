@@ -11,15 +11,32 @@ public class VerticalBar extends Obstacle {
     private double width;
     private double height;
     private boolean movingRight = true;
+    private double speed;
 
-    public VerticalBar(double x, double y, double largeur, double hauteur) {
+    /**
+     * Constructeur.
+     *
+     * @param x             Position en X.
+     * @param y             Position en Y.
+     * @param largeur       Largeur de la barre.
+     * @param hauteur       Hauteur de la barre.
+     * @param speed         Multiplicateur de la vitesse de base.
+     * @param invincible    true  => couleur rouge.
+     *                      false => possiblement une couleur du joueur.
+     */
+    public VerticalBar(double x, double y, double largeur,
+                       double hauteur, double speed, boolean invincible) {
         super(x, y);
 
         this.width = largeur;
         this.height = hauteur;
+        this.speed = speed;
         this.renderer = new VerticalBarRenderer(this);
 
-        this.color = (int) (Math.random() * 4);
+        if (invincible)
+            this.color = 4;
+        else
+            this.color = (int) (Math.random() * 4);
     }
 
     @Override
@@ -37,12 +54,13 @@ public class VerticalBar extends Obstacle {
 
         double x = this.getX();
 
+        // Gérer le mouvement
         if(movingRight) {
-            x += 1.8;
+            x += 1.8 * speed;
             if(x >= ColorsWitch.WIDTH - width/2)
                 movingRight = false;
         } else {
-            x -= 1.8;
+            x -= 1.8 * speed;
             if(x <= width/2)
                 movingRight = true;
         }

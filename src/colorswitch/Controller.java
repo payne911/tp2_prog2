@@ -21,6 +21,14 @@ public class Controller {
     static private Text infoTxt;
 
 
+    /**
+     * Constructeur.
+     *
+     * @param primaryStage  La fenêtre du jeu.
+     * @param mainScene     L'affichage principal du jeu.
+     * @param lvlScene      Le menu de sélection de niveau.
+     * @param infoTxt       Le texte informatif (Victory/Loss).
+     */
     public Controller(Stage primaryStage, Scene mainScene,
                       Scene lvlScene, Text infoTxt) {
         this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
@@ -113,10 +121,10 @@ public class Controller {
         else
             infoTxt.setFill(Color.RED);
 
-        // Après une seconde, le texte n'est plus!
+        // Après une seconde et demie, le texte n'est plus!
         Thread displayCounter = new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
                 infoTxt.setText("");
             } catch (Exception e) {
             }

@@ -19,7 +19,18 @@ public class Canon extends Obstacle {
     private double speed;
     private double rate;
 
-    public Canon(double x, double y, double longueur, double range, double speed, double rate) {
+    /**
+     * Constructeur,
+     *
+     * @param x         Position en X.
+     * @param y         Position en Y.
+     * @param longueur  Largeur du canon.
+     * @param range     Distance jusqu'à laquelle le canon détecte le joueur.
+     * @param speed     Vitesse des balles du canon.
+     * @param rate      Rapidité de feu des balles. Proche de 0 => plus rapide.
+     */
+    public Canon(double x, double y, double longueur,
+                 double range, double speed, double rate) {
         super(x, y);
 
         this.posX = x;
@@ -73,13 +84,12 @@ public class Canon extends Obstacle {
 
                 // Le canon tire une balle!
                 Platform.runLater(() ->
-                        level.obstacles.add(new Bullet(posX, posY, 3, this.speed))
+                        level.obstacles.add(
+                                new Bullet(posX, posY, 3, this.speed))
                 );
 
                 timeSinceLastShot = 0;
             }
-
-
         }
     }
 

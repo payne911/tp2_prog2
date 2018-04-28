@@ -10,6 +10,12 @@ public class Shrinker extends Item {
     private int number = 13;
     private int frameRate = 20;
 
+    /**
+     * Constructeur.
+     *
+     * @param x     Position en X.
+     * @param y     Position en Y.
+     */
     public Shrinker(double x, double y) {
         super(x, y);
 

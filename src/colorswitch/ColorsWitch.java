@@ -17,14 +17,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
-/*
-    BONUS
-
-    - TODO: Créer plus de variété (5%)
-        • 6 niveaux, pour un total de 10 niveaux
- */
-
 /*
     TODO:
     Une seule personne par équipe doit remettre le travail sur StudiUM, l’autre doit remettre un
@@ -32,11 +24,13 @@ import javafx.stage.Stage;
     (p1234..., soit ce que vous utilisez pour vous connecter sur StudiUM)
  */
 
-// TODO: JavaDoc!
 // TODO: Allonger le nom des variables? (plus explicite...)    -.-'
 // TODO: Possiblement ajouter des indicateurs visuels pour l'état du joueur (invincible ou non, etc.)
-// TODO: Possiblement rajouter au canon un rectangle qui suit le joueur lorsqu'il rentre dans son range
-// TODO: TAB à désactiver à chaque nouveau niveau ? À vérifier...
+// TODO: Ajouter une barre noire derrière le Texte Informatif !
+// TODO : JavaDoc'er les Levels ? Arranger la longueur des lignes.
+
+// TODO : Bug => SPACE une fois mort..?
+// TODO : Rajouter des obstacles après le champignon pour empêcher les stalls.
 
 
 /**
@@ -176,7 +170,7 @@ public class ColorsWitch extends Application {
         level10.setOnAction((event) -> controller.changeLvl(10));
 
 
-        // Finalisation
+        // Finalisation sur la fenêtre principale
         primaryStage.setTitle("Colors Witch");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

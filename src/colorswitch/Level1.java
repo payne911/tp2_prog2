@@ -8,11 +8,23 @@ public class Level1 extends Level {
         double x = screenWidth / 2;
 
         // Création des obstacles
-
-        Square obstacle1 = new Square(x, 0.55 * screenHeight, 30);
+        Scroller obstacle1 = new Scroller(x, 0.75 * screenHeight, 25,
+                120, 50);
+        Square obstacle2 = new Square(x, 1.5 * screenHeight, 60);
+        VerticalBar obstacle3 = new VerticalBar(x, 1.6 * screenHeight,
+                50,70,2, false);
+        Square obstacle4 = new Square(x, 2.2 * screenHeight, 300);
 
         obstacles.add(obstacle1);
+        obstacles.add(obstacle2);
+        obstacles.add(obstacle3);
+        obstacles.add(obstacle4);
 
-        victoryMushroom = new Mushroom(x, 0.9 * screenHeight);
+        // Création des items
+        Potion potion1 = new Potion(x, 1.15 * screenHeight);
+
+        items.add(potion1);
+
+        victoryMushroom = new Mushroom(x, 3 * screenHeight);
     }
 }

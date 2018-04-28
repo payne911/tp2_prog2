@@ -10,6 +10,12 @@ public class Mushroom extends Item {
     private int number = 26;
     private int frameRate = 30;
 
+    /**
+     * Constructeur.
+     *
+     * @param x     Position en X.
+     * @param y     Position en Y.
+     */
     public Mushroom(double x, double y) {
         super(x, y);
 

@@ -3,8 +3,7 @@ package colorswitch;
 /**
  * Obstacle simple :
  * Il s’agit d’un cercle de taille fixe qui tourne autour d’un point
- * central et dont la couleur change avec le temps (à la même vitesse
- * que le Square donné en exemple)
+ * central et dont la couleur change avec le temps.
  */
 public class RotatingCircle extends Obstacle {
 
@@ -21,7 +20,7 @@ public class RotatingCircle extends Obstacle {
      * @param y             Position en Y du point de rotation.
      * @param circRadius    Rayon du cercle qui bouge.
      * @param rotRadius     Distance entre le cercle et son point de rotation.
-     * @param speed         Vitesse à laquelle le cercle tourne (1 = normal).
+     * @param speed         Vitesse à laquelle le cercle tourne.
      */
     public RotatingCircle(double x, double y, double circRadius,
                           double rotRadius, double speed) {
@@ -63,6 +62,7 @@ public class RotatingCircle extends Obstacle {
 
         // Pour la rotation autour du centre
         double angle = speed;
+
         double x1 = posX - this.getX();
         double y1 = posY - this.getY();
 
@@ -71,7 +71,6 @@ public class RotatingCircle extends Obstacle {
 
         posX = x2 + this.getX();
         posY = y2 + this.getY();
-
 
         // Pour le changement de couleur
         timeSinceColorChange += dt;

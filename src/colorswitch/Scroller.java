@@ -60,7 +60,7 @@ public class Scroller extends Obstacle {
 
             double spawnPos = -1.5*width;
 
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 7; i++) {
 
                 MovingRectangle temp = new MovingRectangle(
                         spawnPos, y, width, height, i%4);

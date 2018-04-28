@@ -9,8 +9,17 @@ public class MovingRectangle extends Obstacle {
     private double width;
     private double height;
 
-    public MovingRectangle(double x, double y, double longueur, double hauteur,
-                           int color) {
+    /**
+     * Constructeur.
+     *
+     * @param x         Position en X.
+     * @param y         Position en Y.
+     * @param longueur  Largeur du rectangle.
+     * @param hauteur   Hauteur du rectangle.
+     * @param color     Couleur du rectangle (entier entre 0 et 3).
+     */
+    public MovingRectangle(double x, double y, double longueur,
+                           double hauteur, int color) {
         super(x, y);
 
         this.width = longueur;
@@ -30,10 +39,8 @@ public class MovingRectangle extends Obstacle {
         return height;
     }
 
-
     @Override
     public void tick(double dt) {
-
     }
 
     public int getColor() {
@@ -46,6 +53,14 @@ public class MovingRectangle extends Obstacle {
         double x = player.getX();
         double y = player.getY();
         double r = player.getRadius();
+
+        // TODO: REMOVE THIS TEST !!
+        if (this.color != player.getColor()
+                && x - r < this.getX() + this.getWidth() / 2
+                && x + r > this.getX() - this.getWidth() / 2
+                && y - r < this.getY() + this.getHeight() / 2
+                && y + r > this.getY() - this.getHeight() / 2)
+            System.out.println("Rect: " + this.color + " Player: " + player.getColor());
 
         return this.color != player.getColor()
                 && x - r < this.getX() + this.getWidth() / 2

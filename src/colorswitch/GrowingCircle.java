@@ -14,6 +14,14 @@ public class GrowingCircle extends Obstacle {
     private boolean growing = true;
     private double timeSinceColorChange = 0;
 
+    /**
+     * Constructeur.
+     *
+     * @param x         Position en X.
+     * @param y         Position en Y.
+     * @param minRadius Rayon à son plus petit état.
+     * @param maxRadius Rayon à son plus grand état.
+     */
     public GrowingCircle(double x, double y,
                          double minRadius, double maxRadius) {
         super(x, y);

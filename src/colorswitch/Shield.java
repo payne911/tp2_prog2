@@ -7,6 +7,12 @@ package colorswitch;
  */
 public class Shield extends Item {
 
+    /**
+     * Constructeur.
+     *
+     * @param x     Position en X.
+     * @param y     Position en Y.
+     */
     public Shield(double x, double y) {
         super(x, y);
 
@@ -15,7 +21,6 @@ public class Shield extends Item {
 
     @Override
     public void tick(double dt) {
-        // Rien à faire
     }
 
     @Override

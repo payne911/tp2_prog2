@@ -10,11 +10,12 @@ import javafx.application.Platform;
  */
 public class Bullet extends Obstacle {
 
+    private boolean follow;
     private double radius;
     private double speed;
-    private double posX;
-    private double posY;
-    private double targetY;
+    private double angle;
+    private double posX, posY;
+    private double playerX, playerY, playerDist;
     private double timeSinceColorChange = 0;
     private Object self;
 
@@ -30,16 +31,31 @@ public class Bullet extends Obstacle {
         super(x, y);
 
         this.self = this;
+        this.follow = false;
 
         this.radius = radius;
         this.speed = speed;
         this.posX = x;
         this.posY = y;
 
-        this.targetY = Game.getPlayer().getY() - posY;
+
+        this.playerX = Game.getPlayer().getX();
+        this.playerY = Game.getPlayer().getY();
+
+        this.playerDist = Math.sqrt(Math.pow(playerX - posX, 2)
+                + Math.pow(playerY - posY, 2));
+
+        if (playerX < posX){
+            this.angle = Math.asin((posY - playerY) / this.playerDist);
+            this.speed = -speed;
+        } else {
+            this.angle = -Math.asin((posY - playerY) / this.playerDist);
+        }
+
         this.renderer = new BulletRenderer(this);
 
         this.color = (int) (Math.random() * 4);
+
     }
 
     public double getRadius(){
@@ -67,9 +83,9 @@ public class Bullet extends Obstacle {
     @Override
     public void tick(double dt) {
 
-        // TODO: Tweak these values! It should aim at the player directly, and not adjust (afterward).
-        posX += speed * dt;
-        posY += targetY * dt;
+        // position en x et y mis à jour
+        posX += speed * Math.cos(this.angle) * dt;
+        posY += speed * Math.sin(this.angle) * dt;
 
         if (posX > 500) {
             Platform.runLater(() ->

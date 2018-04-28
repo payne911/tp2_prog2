@@ -11,8 +11,13 @@ public class DeathCircle extends Obstacle {
     private double ay;
     private double vx;
     private double speed;
-    private double ax;
 
+    /**
+     * Un des 100 cercles qui remplace le joueur lorsqu'il meurt.
+     *
+     * @param x Sa position en X.
+     * @param y Sa position en Y.
+     */
     public DeathCircle(double x, double y) {
         super(x, y);
 
@@ -20,7 +25,7 @@ public class DeathCircle extends Obstacle {
 
         double angle = (Math.random() * Math.PI * 2);
 
-        this.vy = Math.sin(angle) * (speed * 0.8) + Game.getPlayer().getPlayerYspeed();
+        this.vy = Math.sin(angle) * speed * 0.8 + Game.getPlayer().getYSpeed();
         this.vx = Math.cos(angle) * speed;
 
         this.ay = -400;
@@ -29,20 +34,6 @@ public class DeathCircle extends Obstacle {
 
         this.radius = Math.random() * 3 + 2;
         this.color = (int) (Math.random() * 4);
-    }
-
-    /**
-     * Pour obtenir un signe négatif ou positif de manière aléatoire
-     *
-     * @return 1.0 ou -1.0
-     */
-    public double randomSign() {
-        double x = Math.random();
-
-        if(x < 0.5)
-            return 1.0;
-        else
-            return -1.0;
     }
 
     @Override
@@ -64,7 +55,6 @@ public class DeathCircle extends Obstacle {
 
         // Mise à jour de la vitesse
         vy += dt * ay;
-        // vx += dt * ax;
 
         // Mise à jour de la position
         y += dt * vy;

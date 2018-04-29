@@ -16,7 +16,6 @@ public class Bullet extends Obstacle {
     private double angle;
     private double posX, posY;
     private double playerX, playerY, playerDist;
-    private double timeSinceColorChange = 0;
     private Object self;
 
     /**
@@ -91,14 +90,6 @@ public class Bullet extends Obstacle {
             Platform.runLater(() ->
                     Game.getLevel().getObstacles().remove(self)
             );
-        }
-
-        // Pour le changement de couleur
-        timeSinceColorChange += dt;
-
-        if (timeSinceColorChange > 1.5) {
-            color = (color + 1) % 4;
-            timeSinceColorChange = 0;
         }
     }
 

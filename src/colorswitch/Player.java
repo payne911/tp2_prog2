@@ -59,10 +59,6 @@ public class Player extends Entity {
         return permaInvinc;
     }
 
-    public double getYSpeed() {
-        return vy;
-    }
-
 
     /**
      * Shrinks the player (item effect)
@@ -77,7 +73,10 @@ public class Player extends Entity {
      * Makes the player invincible for 3 seconds.
      */
     public void makeInvincible() {
-        invincible = true;
+        if (invincible)
+            invCounter = 0;
+        else
+            invincible = true;
     }
 
     /**
@@ -198,7 +197,7 @@ public class Player extends Entity {
 
         if (shrinking) {
             vy = Math.max(vy, 0);
-            vy += 300;
+            vy += 230;
         } else {
             vy = Math.max(vy, 0);
             vy += 200;

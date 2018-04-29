@@ -1,5 +1,8 @@
 package colorswitch;
 
+/**
+ * Niveau 6.
+ */
 public class Level6 extends Level {
 
     public Level6(double screenWidth, double screenHeight) {
@@ -38,11 +41,11 @@ public class Level6 extends Level {
         }
 
         // Ajouter les groupes d'obstacles
-        for (VerticalBar v : verticalBars1) {
-            obstacles.add(v);
+        for (VerticalBar verticalBarGroup1 : verticalBars1) {
+            obstacles.add(verticalBarGroup1);
         }
-        for (VerticalBar v : verticalBars2) {
-            obstacles.add(v);
+        for (VerticalBar verticalBarGroup2 : verticalBars2) {
+            obstacles.add(verticalBarGroup2);
         }
 
         obstacles.add(obstacle0);

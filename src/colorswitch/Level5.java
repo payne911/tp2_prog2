@@ -1,5 +1,8 @@
 package colorswitch;
 
+/**
+ * Niveau 5.
+ */
 public class Level5 extends Level {
 
     public Level5(double screenWidth, double screenHeight) {
@@ -15,7 +18,7 @@ public class Level5 extends Level {
         Square obstacle2 = new Square(x, 1.1 * screenHeight, 20);
 
         Canon obstacle3 = new Canon(.25 * x, 2 * screenHeight, 30,
-                200, 300, 1);
+                200, 250, 1);
         Canon obstacle4 = new Canon(1.75 * x, 2 * screenHeight, 30,
                 200, 170, 1);
 

@@ -25,7 +25,7 @@ public class DeathCircle extends Obstacle {
 
         double angle = (Math.random() * Math.PI * 2);
 
-        this.vy = Math.sin(angle) * speed * 0.8 + Game.getPlayer().getYSpeed();
+        this.vy = Math.sin(angle) * speed * 0.8;
         this.vx = Math.cos(angle) * speed;
 
         this.ay = -400;

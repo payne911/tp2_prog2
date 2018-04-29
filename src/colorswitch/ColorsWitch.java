@@ -17,22 +17,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/*
-    TODO:
-    Une seule personne par équipe doit remettre le travail sur StudiUM, l’autre doit remettre un
-    fichier nommé equipe.txt contenant uniquement le code d’identification de l’autre personne
-    (p1234..., soit ce que vous utilisez pour vous connecter sur StudiUM)
- */
-
-// TODO: Allonger le nom des variables? (plus explicite...)    -.-'
-// TODO: Possiblement ajouter des indicateurs visuels pour l'état du joueur (invincible ou non, etc.)
-// TODO: Ajouter une barre noire derrière le Texte Informatif !
-// TODO : JavaDoc'er les Levels ? Arranger la longueur des lignes.
-
-// TODO : Bug => SPACE une fois mort..?
-// TODO : Rajouter des obstacles après le champignon pour empêcher les stalls.
-
-
 /**
  * Classe principale. Définit la vue.
  *
@@ -81,7 +65,7 @@ public class ColorsWitch extends Application {
         Button level9 = new Button("Level 9");
         Button level10 = new Button("Level 10");
 
-        Text lvlTxt = new Text("Choisissez un niveau!");
+        Text lvlTxt = new Text("Choisissez un niveau!\n");
 
         lvlVBox.getChildren().addAll(lvlTxt, level1, level2, level3,
                 level4, level5, level6, level7, level8, level9, level10);

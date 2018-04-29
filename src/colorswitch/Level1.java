@@ -1,5 +1,8 @@
 package colorswitch;
 
+/**
+ * Niveau 1.
+ */
 public class Level1 extends Level {
 
     public Level1(double screenWidth, double screenHeight) {
@@ -21,9 +24,9 @@ public class Level1 extends Level {
         obstacles.add(obstacle4);
 
         // Création des items
-        Potion potion1 = new Potion(x, 1.15 * screenHeight);
+        Potion potion = new Potion(x, 1.15 * screenHeight);
 
-        items.add(potion1);
+        items.add(potion);
 
         victoryMushroom = new Mushroom(x, 3 * screenHeight);
     }

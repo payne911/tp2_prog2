@@ -1,5 +1,8 @@
 package colorswitch;
-// TODO: Remplacer par notre propre Level8
+
+/**
+ * Niveau 8.
+ */
 public class Level8 extends Level {
 
     public Level8(double screenWidth, double screenHeight) {
@@ -17,28 +20,46 @@ public class Level8 extends Level {
 
         // Création des obstacles
         for (int i = 0; i < canonsRight.length; i++){
-            canonsRight[i] = new Canon(screenWidth - (size + 5), spacing + spacing * i, size,range,
-                    Math.random() * baseSpeed + baseSpeed, rate + Math.random());
+            canonsRight[i] = new Canon(screenWidth - (size + 5),
+                    spacing + spacing * i, size,range,
+                    Math.random() * baseSpeed + baseSpeed,
+                    rate + Math.random());
         }
 
         for (int i = 0; i < canonsLeft.length; i++){
-            canonsLeft[i] = new Canon(size + 5, spacing + spacing * i, size,range,
-                    (Math.random() * baseSpeed + baseSpeed), rate + Math.random());
+            canonsLeft[i] = new Canon(size + 5, spacing + spacing * i,
+                    size,range,
+                    (Math.random() * baseSpeed + baseSpeed),
+                    rate + Math.random());
         }
 
-        VerticalBar vb1 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 0.65 * screenHeight, 10, 60,1, false);
-        VerticalBar vb2 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 1.05 * screenHeight, 10, 60,1, false);
-        VerticalBar vb3 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 1.5 * screenHeight, 10, 60,2, false);
+        VerticalBar vb1 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                0.65 * screenHeight, 10,
+                60,1, false);
+        VerticalBar vb2 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                1.05 * screenHeight, 10,
+                60,1, false);
+        VerticalBar vb3 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                1.5 * screenHeight, 10,
+                60,2, false);
 
-        Scroller scroller1 = new Scroller(x,2 * screenHeight,15,90,60);
+        Scroller scroller1 = new Scroller(x,2 * screenHeight,15,
+                90,60);
 
-        VerticalBar vb4 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 2.25 * screenHeight, 10, 60,1, false);
-        VerticalBar vb5 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 2.7 * screenHeight, 10, 60,2, false);
-        VerticalBar vb6 = new VerticalBar(ColorsWitch.WIDTH * Math.random(), 3.1 * screenHeight, 10, 60,1, false);
+        VerticalBar vb4 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                2.25 * screenHeight, 10, 60,1,
+                false);
+        VerticalBar vb5 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                2.7 * screenHeight, 10, 60,2,
+                false);
+        VerticalBar vb6 = new VerticalBar(ColorsWitch.WIDTH * Math.random(),
+                3.1 * screenHeight, 10, 60,1,
+                true);
 
-        Scroller scroller2 = new Scroller(x,3.5 * screenHeight,15,100,80);
-        Scroller scroller3 = new Scroller(x,3.5 * screenHeight + 15,15,100,-80);
-
+        Scroller scroller2 = new Scroller(x,3.5 * screenHeight,
+                15,100,80);
+        Scroller scroller3 = new Scroller(x,3.5 * screenHeight + 400,
+                15,100,80);
 
         for (Canon c : canonsLeft){
             obstacles.add(c);
@@ -57,12 +78,12 @@ public class Level8 extends Level {
         obstacles.add(vb5);
         obstacles.add(vb6);
 
-        Dizzy dizzy = new Dizzy(ColorsWitch.WIDTH / 2,2 * screenHeight + 50);
-
-
+        // Création de l'item
+        Dizzy dizzy = new Dizzy(ColorsWitch.WIDTH / 2,
+                2 * screenHeight + 50);
 
         items.add(dizzy);
 
-        victoryMushroom = new Mushroom(x, 6 * screenHeight);
+        victoryMushroom = new Mushroom(x, 5 * screenHeight);
     }
 }

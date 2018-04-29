@@ -54,14 +54,6 @@ public class MovingRectangle extends Obstacle {
         double y = player.getY();
         double r = player.getRadius();
 
-        // TODO: REMOVE THIS TEST !!
-        if (this.color != player.getColor()
-                && x - r < this.getX() + this.getWidth() / 2
-                && x + r > this.getX() - this.getWidth() / 2
-                && y - r < this.getY() + this.getHeight() / 2
-                && y + r > this.getY() - this.getHeight() / 2)
-            System.out.println("Rect: " + this.color + " Player: " + player.getColor());
-
         return this.color != player.getColor()
                 && x - r < this.getX() + this.getWidth() / 2
                 && x + r > this.getX() - this.getWidth() / 2

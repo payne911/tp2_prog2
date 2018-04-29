@@ -1,5 +1,6 @@
 package colorswitch;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -52,10 +53,14 @@ public class Controller {
         if (this.game.isGameOver()) {
 
             if (this.game.hasWon()) {
-                level++;
+
+                // End game with Level Selection Menu, or go to next level
+                if (level == 10)
+                    escapeTyped();
+                else
+                    level++;
             }
 
-            // TODO: Rajouter le text ici?
             this.game = new Game(ColorsWitch.WIDTH, ColorsWitch.HEIGHT, level);
 
         } else {
@@ -114,6 +119,16 @@ public class Controller {
      */
     static public void displayTxt(String text) {
 
+        Level level = Game.getLevel();
+
+        // Removing Obstacles and Items for a clearer view on the text.
+        for (Obstacle obstacle : level.getObstacles())
+            if (!(obstacle instanceof DeathCircle))
+                Platform.runLater(() -> level.getObstacles().remove(obstacle));
+        for (Item item : level.getPowerUps())
+            Platform.runLater(() -> level.getPowerUps().remove(item));
+
+
         infoTxt.setText(text);
 
         if(text.contains("réussi"))
@@ -127,6 +142,7 @@ public class Controller {
                 Thread.sleep(1500);
                 infoTxt.setText("");
             } catch (Exception e) {
+                infoTxt.setText("");
             }
         });
         displayCounter.start();

@@ -1,5 +1,8 @@
 package colorswitch;
 
+/**
+ * Niveau 4.
+ */
 public class Level4 extends Level {
 
     public Level4(double screenWidth, double screenHeight) {
@@ -15,8 +18,8 @@ public class Level4 extends Level {
         RotatingCircle obstacle2 = new RotatingCircle(x, .8
                 * screenHeight, 15,60,-.08);
 
-        Square obstacle3 = new Square(x, 2.27 * screenHeight, 20);
-        Square obstacle4 = new Square(x, 2.5 * screenHeight, 150);
+        Square obstacle3 = new Square(x, 2.1 * screenHeight, 20);
+        Square obstacle4 = new Square(x, 2.5 * screenHeight, 100);
 
         VerticalBar obstacle5 = new VerticalBar(x, 1.7 * screenHeight,
                 20,70,3, true);
@@ -24,6 +27,10 @@ public class Level4 extends Level {
                 20,90,1.5, true);
         VerticalBar obstacle7 = new VerticalBar(x, 1.8 * screenHeight,
                 20,20,3.5, true);
+
+        // Beyond the mushroom: to prevent stalls
+        VerticalBar ender = new VerticalBar(x, 3.5 * screenHeight,
+                200,30,15, true);
 
         obstacles.add(obstacle0);
         obstacles.add(obstacle1);
@@ -33,6 +40,7 @@ public class Level4 extends Level {
         obstacles.add(obstacle5);
         obstacles.add(obstacle6);
         obstacles.add(obstacle7);
+        obstacles.add(ender);
 
         // Création des items
         Potion potion = new Potion(x, 1.32 * screenHeight);
